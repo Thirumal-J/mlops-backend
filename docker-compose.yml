@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  core:
+    build: 
+      context: ./
+      dockerfile: "core/core.dockerfile"
+    environment:
+        - PYTHONUNBUFFERED=1
+    ports:
+        - "${PORT_MLFLOW}:${PORT_MLFLOW}"
+    volumes:
+        - mymlruns:${SHARED_VOLUME}
+    networks:
+        - mlapp-net
+
+  scania_classification:
+    build: 
+      context: ./
+      dockerfile: "scania_classification/scania.dockerfile"
+    environment:
+        - PYTHONUNBUFFERED=1
+    ports:
+        - "${PORT_SCANIA}:${PORT_SCANIA}"
+    volumes:
+        - mymlruns:${SHARED_VOLUME}
+    depends_on:
+        - core
+    networks:
+        - mlapp-net
+
+  turbofan_regression:
+    build: 
+      context: ./
+      dockerfile: "turbofan_regression/regression.dockerfile"
+    environment:
+        - PYTHONUNBUFFERED=1
+    ports:
+        - "${PORT_REGRESSION}:${PORT_REGRESSION}"
+    volumes:
+        - mymlruns:${SHARED_VOLUME}
+    depends_on:
+        - core
+    networks:
+        - mlapp-net
+
+networks:
+  mlapp-net:
+    driver: bridge
+
+volumes:
+  mymlruns: 

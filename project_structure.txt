@@ -1,0 +1,19 @@
+.
+├── core
+│   ├── core.api.py
+│   ├── core.dockerfile
+│   └── core.requirements.txt
+├── docker-compose.yml
+├── project_structure.txt
+├── scania_classification
+│   ├── scania.api.py
+│   ├── scania.dockerfile
+│   ├── scania.preprocessing.py
+│   └── scania.requirements.txt
+└── turbofan_regression
+    ├── turbofan.api.py
+    ├── turbofan.dockerfile
+    ├── turbofan.preprocessing.py
+    └── turbofan.requirements.txt
+
+4 directories, 13 files
